@@ -73,4 +73,8 @@ public class AllPages {
         pos.userProfile.click();
         pos.logout.isDisplayed();
     }
+    @Then("^I should see the validations$")
+    public void i_should_see_the_validations() throws Throwable {
+
+    }
 }
