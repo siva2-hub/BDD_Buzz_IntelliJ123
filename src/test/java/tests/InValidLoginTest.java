@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/featurefiles/InValidLogin.feature",
         glue = "stepdefinitions",
-        dryRun = true,
+        dryRun = false,
         plugin = {
                 "pretty",
                 "html:cucumber-reports.html"
