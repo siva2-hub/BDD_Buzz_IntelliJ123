@@ -45,15 +45,13 @@ public class PageObjects {
     public WebElement quoteItems;
     @FindBy(xpath = "//*[text()='Add Items']")
     public WebElement addItems;
-    @FindBy(className = "id-num")
-    WebElement quoteRepid;
     @FindBy(xpath = "//*[@placeholder='Search By Part Number']")
     public WebElement partsSearch;
     @FindBy(xpath = "//*[contains(text(),'Add Selected')]")
     public WebElement addSelectedItems;
     @FindBy(xpath = "//*[@id='repair-items']/div[2]/div/div/div/div/div")
     public WebElement itemSelCheckBox;
-    @FindBy(xpath = "//*[contains(@class,'data grid')]/div")
+    @FindBy(xpath = "//*[contains(@class,'data grid')]/div[1]")
     public WebElement itemCheckBox;
     @FindBy(xpath = "(//*[@class='quote-option-del-icon edit-icon'])[1]")
     public WebElement bulkEdit;
@@ -76,6 +74,10 @@ public class PageObjects {
     public WebElement textElement(String text){
         WebElement element = driver.findElement(By.xpath("//*[contains(text(),'"+text+"')]"));
         return element;
+    }
+    public By byLocator(String text){
+        By locator = By.xpath(text);
+        return locator;
     }
     public void selectReactDropdown(String text)throws Exception{
         Thread.sleep(1200);

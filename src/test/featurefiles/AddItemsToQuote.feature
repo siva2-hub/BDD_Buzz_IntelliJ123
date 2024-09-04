@@ -8,11 +8,11 @@ Feature: Add Items
     When I click on create quote button at quotes list
     Then I should see the create quote page and i fill the details as "<accountNum>", "<quoteType>", "<details>"
     When I click on the Create button
-    Then I shoould see the add items button at quote details page
+    Then I should see the add items button at quote details page
     When I click on Add items button
     And I search and add items
     And I close the browser
 
     Examples:
-      | username                        |password   | accountNum|quoteType  |details                                             |       items|
-      | defaultuser@enterpi.com         | Enter@4321|    ZUMMO00|Parts Quote|       Zummo Meat Co IncZUMMO003705 SAINT JAMES BLVD|GA80U4103ABM|
+      | username                        |password   | accountNum|quoteType  |details                                             |
+      | defaultuser@enterpi.com         | Enter@4321|    ZUMMO00|Parts Quote|       Zummo Meat Co IncZUMMO003705 SAINT JAMES BLVD|

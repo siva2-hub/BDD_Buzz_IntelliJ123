@@ -16,9 +16,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.PageObjects;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class AllPages {
     public PageObjects pos;
@@ -39,6 +41,7 @@ public class AllPages {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         Dotenv dotenv = Dotenv.load();
         String url = dotenv.get("pageURL");
         driver.get(url);
@@ -87,30 +90,30 @@ public class AllPages {
 
     @When("^I click on create quote button at quotes list$")
     public void i_click_on_create_quote_button_at_quotes_list() throws Throwable {
-//        pos.createQuote1.click();
+        pos.createQuote1.click();
     }
 
     @Then("^I should see the create quote page and i fill the details as \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void i_should_see_the_create_quote_page_and_i_fill_the_details_as(String accountNum, String quoteType, String details) throws Throwable {
-//        wait.until(ExpectedConditions.visibilityOf(pos.projName));
-//        pos.firstReactInput.click();
-//        actions.sendKeys(accountNum).perform();
-//        Thread.sleep(400);
-//        wait.until(ExpectedConditions.invisibilityOf(pos.spinner));
-//        pos.selectReactDropdown(accountNum);
-//        pos.projName.sendKeys("for testing perpose");
-//        pos.secondReactInput.click();
-//        actions.sendKeys(quoteType).perform();
-//        pos.selectReactDropdown(quoteType);
+        wait.until(ExpectedConditions.visibilityOf(pos.projName));
+        pos.firstReactInput.click();
+        actions.sendKeys(accountNum).perform();
+        Thread.sleep(400);
+        wait.until(ExpectedConditions.invisibilityOf(pos.spinner));
+        pos.selectReactDropdown(accountNum);
+        pos.projName.sendKeys("for testing perpose");
+        pos.secondReactInput.click();
+        actions.sendKeys(quoteType).perform();
+        pos.selectReactDropdown(quoteType);
     }
 
     @When("^I click on the Create button$")
     public void i_click_on_the_Create_button() throws Throwable {
-//        pos.createQuote3.click();
+        pos.createQuote3.click();
         driver.navigate().to("https://buzzworld-web-iidm.enterpi.com/quote_for_parts/23b1fd51-4af6-4a46-84c0-ff58ddaab865");
     }
 
-    @Then("^I shoould see the add items button at quote details page$")
+    @Then("^I should see the add items button at quote details page$")
     public void i_shoould_see_the_add_items_button_at_quote_details_page() throws Throwable {
         wait.until(ExpectedConditions.visibilityOf(pos.addItems));
         String quoteId = pos.repQuoteId.getText().replace("#","");
@@ -124,13 +127,18 @@ public class AllPages {
     }
 
     @When("^I search and add items$")
-    public void i_search_and_add_items(DataTable dataTable) throws Throwable {
-        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
-        for (Map<String, String> row: data) {
-            String stockCode = row.get("items");
-            System.out.println(stockCode);
-            pos.partsSearch.sendKeys(stockCode);
-            System.exit(1000);
+    public void i_search_and_add_items() throws Throwable {
+        String[] items = {"GA80U4103ABM"};
+        for (int i = 0; i < items.length; i++) {
+            wait.until(ExpectedConditions.visibilityOf(pos.partsSearch));
+            pos.partsSearch.sendKeys(items[i]);
+            Thread.sleep(1300);
+            wait.until(ExpectedConditions.invisibilityOf(pos.spinner));
+            pos.itemCheckBox.click();
+            pos.addSelectedItems.click();
+            Thread.sleep(1200);
+            wait.until(ExpectedConditions.visibilityOf(pos.textElement("GP")));
         }
+        Thread.sleep(1500);
     }
 }
